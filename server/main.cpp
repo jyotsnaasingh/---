@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -90,7 +91,9 @@ server.Get("/script.js", [](const httplib::Request& req,
 
     cout << "Server starting on http://localhost:8080" << endl;
 
-    server.listen("0.0.0.0", 8080);
+    const char* portEnv = std::getenv("PORT");
+int port = portEnv ? std::stoi(portEnv) : 8080;
 
+server.listen("0.0.0.0", port);
     return 0;
 }
